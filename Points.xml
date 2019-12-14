@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Points>
+	<point id="1">
+		<x>0</x>
+		<y>-4</y>
+	</point>
+	<point id="2">
+		<x>1</x>
+		<y>-3</y>
+	</point>
+	<point id="3">
+		<x>3</x>
+		<y>5</y>
+	</point>
+	<point id="4">
+		<x>4</x>
+		<y>12</y>
+	</point>
+	<point id="5">
+		<x>5</x>
+		<y>21</y>
+	</point>
+	<point id="6">
+		<x>6</x>
+		<y>32</y>
+	</point>
+	<point id="7">
+		<x>7</x>
+		<y>45</y>
+	</point>
+</Points>
