@@ -3,19 +3,34 @@ package com.gmail.Flameaxio;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.SnapshotParameters;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.FileChooser;
 import javafx.util.converter.DoubleStringConverter;
+import sun.misc.BASE64Encoder;
+import sun.misc.IOUtils;
+import sun.nio.ch.IOUtil;
 
+import javax.imageio.ImageIO;
+import javax.imageio.stream.ImageInputStream;
+import java.awt.image.BufferedImage;
+import java.awt.image.RenderedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.IOException;
+import java.net.URL;
+import java.nio.file.Files;
+import java.util.*;
 
-public class Controller
+public class Controller implements Initializable
 {
     private SolutionCascade sc;
     private ObservableList<Point> fx;
@@ -29,11 +44,23 @@ public class Controller
     @FXML private TextField a;
     @FXML private TextField b;
     @FXML private TextField e;
-    public static FileChooser getFileChooser(String title) {
+    @FXML private LineChart graph;
+    @FXML private TextArea rootsArea;
+    public static FileChooser getFileChooser(String title, String format) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setInitialDirectory(new File("."));
-        fileChooser.getExtensionFilters().add(
-                new FileChooser.ExtensionFilter("XML-files (*.xml)", "*.xml"));
+        if(format.equals("XML")) {
+            fileChooser.getExtensionFilters().add(
+                    new FileChooser.ExtensionFilter("XML-files (*.xml)", "*.xml"));
+        }
+        else if(format.equals("HTML")) {
+            fileChooser.getExtensionFilters().add(
+                    new FileChooser.ExtensionFilter("HTML-files (*.html)", "*.html"));
+        }
+        else if(format.equals("PNG")){
+            fileChooser.getExtensionFilters().add(
+                    new FileChooser.ExtensionFilter("PNG-files (*.png)", "*.png"));
+        }
         fileChooser.getExtensionFilters().add(
                 new FileChooser.ExtensionFilter("All files (*.*)", "*.*"));
         fileChooser.setTitle(title);
@@ -55,7 +82,7 @@ public class Controller
     }
     @FXML
     private void doOpen(ActionEvent event) {
-        FileChooser fileChooser = getFileChooser("Open XML-file");
+        FileChooser fileChooser = getFileChooser("Open XML-file", "XML");
         File file;
         try{
         if ((file = fileChooser.showOpenDialog(null)) != null) {
@@ -76,7 +103,7 @@ public class Controller
     }
     @FXML
     private void doSave(ActionEvent event) {
-        FileChooser fileChooser = getFileChooser("Save XML-file");
+        FileChooser fileChooser = getFileChooser("Save XML-file", "XML");
         File file;
         if ((file = fileChooser.showSaveDialog(null)) != null) {
             try {
@@ -184,10 +211,75 @@ public class Controller
         updateTable();
     }
 
-    public void doCalc(ActionEvent actionEvent) {
+    public void doCalc(ActionEvent actionEvent)
+    {
+        graph.getData().clear();
+        if(sc.getRoots() != null)
+        sc.getRoots().clear();
+        try {
+            //draw graph
+            Double A = Double.parseDouble(a.getText());
+            Double B = Double.parseDouble(b.getText());
+            XYChart.Series seriesX = new XYChart.Series();
+            XYChart.Series seriesY = new XYChart.Series();
+            for (Double i =  A; i <= B; i++) {
+                double x = Calculator.InterpolateLagrangePolynomial(i,sc.getInputF());
+                seriesX.getData().add(new XYChart.Data(i, x));
+            }
+            for (Double i =  A; i <= B; i++) {
+                double x = Calculator.InterpolateLagrangePolynomial(i,sc.getInputG());
+                seriesY.getData().add(new XYChart.Data(i, x));
+            }
+            graph.getData().add(seriesX);
+            graph.getData().add(seriesY);
+
+            //calc roots
+            sc.calculator.roots(Double.parseDouble(a.getText()),Double.parseDouble(b.getText()),Double.parseDouble(e.getText()));
+            Vector<Double> roots = sc.calculator.getRoots();
+            sc.setRoots(roots);
+            rootsArea.clear();
+            System.out.println(sc.getRoots());
+            for(int i = 0; i < roots.size(); i++)
+            {
+                rootsArea.appendText("Root #" + (i+1) + ": " + roots.get(i) + "\n");
+            }
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 
-    public void doOutput(ActionEvent actionEvent) {
+    public void doOutput(ActionEvent actionEvent)
+    {
+        sc.setGraphShot(graph.snapshot(new SnapshotParameters(), null));
+        String imageString = null;
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+
+        try {
+            RenderedImage renderedImage = SwingFXUtils.fromFXImage(sc.getGraphShot(), null);
+
+            ImageIO.write(renderedImage, "PNG", bos);
+            byte[] imageBytes = bos.toByteArray();
+
+            imageString = Base64.getEncoder().encodeToString(imageBytes);
+
+            bos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        FileChooser fileChooser = getFileChooser("Save HTML-file", "HTML");
+        File file;
+        if ((file = fileChooser.showSaveDialog(null)) != null) {
+            try {
+                updateSourceData();
+                sc.saveHTML(file, imageString);
+                showMessage("Results saved successfully");
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+                showError("Error writing to the file");
+            }
+        }
     }
 
     private void updateSourceData()
@@ -202,5 +294,10 @@ public class Controller
         {
             sc.getInputG().add(p);
         }
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        rootsArea.setEditable(false);
     }
 }

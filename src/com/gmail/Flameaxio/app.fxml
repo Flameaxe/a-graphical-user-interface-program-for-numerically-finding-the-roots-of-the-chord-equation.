@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.scene.chart.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane prefHeight="-1.0" prefWidth="-1.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gmail.Flameaxio.Controller">
+<BorderPane prefHeight="-1.0" prefWidth="-1.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="com.gmail.Flameaxio.Controller">
   <center>
     <LineChart fx:id="graph">
       <xAxis>
@@ -21,14 +22,14 @@
       <children>
         <TableView fx:id="tableViewF" layoutX="0.0" layoutY="29.0" prefHeight="449.000022070315" prefWidth="200.0">
           <columns>
-            <TableColumn fx:id="fxcol" maxWidth="5000.0" minWidth="10.0" prefWidth="105.0" text="x" />
-            <TableColumn fx:id="fycol" maxWidth="5000.0" minWidth="10.0" prefWidth="99.0" text="y" />
+            <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="105.0" text="x" fx:id="fxcol" />
+            <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="99.0" text="y" fx:id="fycol" />
           </columns>
         </TableView>
         <TableView fx:id="tableViewG" layoutX="200.0" layoutY="29.0" prefHeight="449.0" prefWidth="200.0">
           <columns>
-            <TableColumn fx:id="gxcol" maxWidth="5000.0" minWidth="10.0" prefWidth="105.0" text="x" />
-            <TableColumn fx:id="gycol" maxWidth="5000.0" minWidth="10.0" prefWidth="99.0" text="y" />
+            <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="105.0" text="x" fx:id="gxcol" />
+            <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="99.0" text="y" fx:id="gycol" />
           </columns>
         </TableView>
         <Label layoutX="85.0" layoutY="5.0" text="f(x)">
@@ -54,10 +55,12 @@
         <Button font="$x1" layoutX="63.0" layoutY="242.0" mnemonicParsing="false" onAction="#doCalc" text="Calculate" />
         <TextField fx:id="a" layoutX="23.0" layoutY="71.0" prefWidth="40.0" />
         <TextField fx:id="b" layoutX="141.0" layoutY="71.0" prefWidth="40.0" />
-        <Label layoutX="23.0" layoutY="57.0" prefWidth="11.0" text="a:" />
-        <Label layoutX="141.0" layoutY="57.0" text="b:" />
+        <Label font="$x1" layoutX="23.0" layoutY="57.0" prefWidth="11.0" text="a:" />
+        <Label font="$x1" layoutX="141.0" layoutY="57.0" text="b:" />
         <TextField fx:id="e" layoutX="38.0" layoutY="140.0" prefWidth="125.0" />
-        <Label layoutX="38.0" layoutY="123.0" text="Epsilon:" />
+        <Label font="$x1" layoutX="38.0" layoutY="123.0" text="Epsilon:" />
+        <TextArea fx:id="rootsArea" layoutX="8.0" layoutY="309.0" prefWidth="185.0" wrapText="true" />
+        <Label font="$x1" layoutX="85.0" layoutY="292.0" text="Roots:" />
       </children>
     </Pane>
   </right>

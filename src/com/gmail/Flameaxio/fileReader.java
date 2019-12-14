@@ -1,10 +1,12 @@
 package com.gmail.Flameaxio;
 
+import javafx.embed.swing.SwingFXUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import javax.imageio.ImageIO;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.OutputKeys;
@@ -12,8 +14,8 @@ import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import java.io.File;
-import java.io.FileWriter;
+import java.io.*;
+import java.util.Scanner;
 import java.util.Vector;
 
 interface XMLReader
@@ -22,7 +24,12 @@ interface XMLReader
     void saveXML(File file);
 }
 
-class fileReader implements XMLReader
+interface HTMLOutputter
+{
+    void saveHTML(File file, String encodedImage);
+}
+
+class fileReader implements XMLReader, HTMLOutputter
 {
     private SolutionCascade sc;
     fileReader(SolutionCascade sc)
@@ -123,5 +130,116 @@ class fileReader implements XMLReader
         {
             e.printStackTrace();
         }
+    }
+
+
+    @Override
+    public void saveHTML(File file, String encodedImage)
+    {
+        try {
+            FileWriter writer = new FileWriter(file);
+            BufferedWriter bw = new BufferedWriter(writer);
+            String content = ("<!DOCTYPE html>\n" +
+                    "<html lang=\"en\">\n" +
+                    "<head>\n" +
+                    "    <meta charset=\"UTF-8\">\n" +
+                    "    <title>Results</title>\n" +
+                    "    <style>\n" +
+                    "        td, th\n" +
+                    "        {\n" +
+                    "              border: 1px solid black;\n" +
+                    "              border-collapse: collapse;\n" +
+                    "              width: 50%;\n" +
+                    "        }\n" +
+                    "        table\n" +
+                    "        {\n" +
+                    "            width: 20vh; text-align: center;\n" +
+                    "        }\n" +
+                    "        .container\n" +
+                    "        {\n" +
+                    "            margin: auto;\n" +
+                    "            display: flex;\n" +
+                    "            flex-wrap: wrap;\n" +
+                    "        }\n" +
+                    "        .table_wrapper\n" +
+                    "        {\n" +
+                    "            display: flex;\n" +
+                    "            width: 50%;\n" +
+                    "            flex-direction: row;\n" +
+                    "        }\n" +
+                    "        .screenshot\n" +
+                    "        {\n" +
+                    "            position: relative;\n" +
+                    "            display: flex;\n" +
+                    "            width: 50%;\n" +
+                    "        }\n" +
+                    "        .roots\n" +
+                    "        {\n" +
+                    "            margin-left: 10vh;\n" +
+                    "        }\n" +
+                    "    </style>\n" +
+                    "</head>\n" +
+                    "<body>\n" +
+                    "      <div class=\"container\">\n" +
+                    "       <div class=\"table_wrapper\">\n" +
+                    "        <table>\n" +
+                    "          <tr>\n" +
+                    "              <th colspan = \"2\">f(x)points</th>\n" +
+                    "          </tr>\n" +
+                    "          <tr>\n" +
+                    "            <th>x</th>\n" +
+                    "            <th>y</th>\n" +
+                    "          </tr>\n");
+            for(int i = 0; i < sc.getInputF().size();i++)
+            {
+                content +=("<tr>\n" +
+                        "<td>"+sc.getInputF().get(i).getX()+"</td>\n" +
+                        "<td>"+sc.getInputF().get(i).getY()+"</td>\n" +
+                        "</tr>");
+            }
+            content+=(
+                    " </table>\n" +
+                    "          <table>\n" +
+                    "          <tr>\n" +
+                    "              <th colspan = \"2\">g(x)points</th>\n" +
+                    "          </tr>\n" +
+                    "          <tr>\n" +
+                    "            <th>x</th>\n" +
+                    "            <th>y</th>\n" +
+                    "          </tr>\n");
+            for(int i = 0; i < sc.getInputG().size();i++)
+            {
+                content+=("<tr>" +
+                        "<td>"+sc.getInputG().get(i).getX()+"</td>\n" +
+                        "<td>"+sc.getInputG().get(i).getY()+"</td>\n" +
+                        "</tr>");
+            }
+            content+=(
+                    "          </table>\n" +
+                    "        </div>\n" +
+                    "        <div class=\"screenshot\">\n" +
+                    "            <img src=\"data:image/png;base64, ");
+            content+= encodedImage + "\">\n";
+            content+=(" </div>\n" +
+                    "        <div class=\"roots\">\n" +
+                    "            <table>\n" +
+                    "                <tr>\n" +
+                    "                <th>Roots</th>\n" +
+                    "                </tr>");
+            for(int i = 0; i < sc.getRoots().size();i++)
+            {
+                content+=("\n<tr><td>"+sc.getRoots().get(i)+"\n</td></tr>\n");
+            }
+            content+=("            </table>\n" +
+                    "        </div>\n" +
+                    "        </div>\n" +
+                    "</body>\n" +
+                    "</html>");
+            bw.write(content);
+            bw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 }
