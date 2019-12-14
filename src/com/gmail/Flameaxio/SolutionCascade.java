@@ -2,54 +2,61 @@ package com.gmail.Flameaxio;
 
 import java.io.File;
 import java.io.FileReader;
-import java.util.Scanner;
+import java.util.Vector;
 
 public class SolutionCascade {
-    //private File outputFile;
     private File inputFile;
-    private Point[] input;
+    private Vector<Point> inputF = new Vector<>();
+    private Vector<Point> inputG = new Vector<>();
     private Calculator calculator;
-    private fileReader fr;
+    private fileReader fr = new fileReader(this);;
     public SolutionCascade(String inputFile)  // receives input and output file directories, if file is null then will be prompted manual input
     {
-       // this.outputFile = new File(outputFile);
-        fr = new fileReader();
-        if(inputFile != null) {
+        if(inputFile != null)
             this.inputFile = new File(inputFile);
-            try {
-                input = fr.read(this.inputFile);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        else
-        {
-            Scanner s = new Scanner(System.in);
-            System.out.println("Enter the number of points: ");
-            int size = s.nextInt();
-            input  = new Point[size];
-            for(int i = 0; i < input.length; i++)
-            {
-                System.out.println("\nEnter x for point #" + (i+1) + ": ");
-                double x = s.nextDouble();
-                System.out.println("\nEnter y for point #" + (i+1) + ": ");
-                double y = s.nextDouble();
-                input[i] = new Point(x,y);
-                System.out.println("Point #" + (i+1) + ";\n X: " + x + ";\n Y: " + y + "\n\n");
-            }
-        }
     }
-    /*public void saveAsXML()
+    public void read() {
+        Vector<Vector<Point>> points = fr.readXML(inputFile);
+        inputF = points.elementAt(0);
+        inputG = points.elementAt(1);
+    }
+    public void addPointF(Point p)
     {
-        if(calculator == null)
-            calculator = new Calculator(input);
-        calculator.saveAsXML();
-    }*/
-    public void calculate(double a, double b,double e) // Receives two values as boundaries and 'epsilon' as the level of precision
+        inputF.add(p);
+    }
+    public void addPointG(Point p)
+    {
+        inputG.add(p);
+    }
+    public void removePointF(int index)
+    {
+        inputF.remove(index);
+    }
+    public void removePointG(int index)
+    {
+        inputG.remove(index);
+    }
+
+    public Vector<Point> getInputF() {
+        return inputF;
+    }
+
+    public Vector<Point> getInputG() {
+        return inputG;
+    }
+
+    public void saveXML(File f)
+    {
+        fr.saveXML(f);
+    }
+
+
+
+    /*public void calculate(double a, double b, double e) // Receives two values as boundaries and 'epsilon' as the level of precision
     {
         if(calculator == null)
             calculator = new Calculator(input);
         calculator.output(a,b,e);
     }
-
+*/
 }

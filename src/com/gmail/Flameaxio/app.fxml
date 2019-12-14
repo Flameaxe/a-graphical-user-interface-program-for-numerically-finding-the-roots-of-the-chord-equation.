@@ -1,83 +1,84 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.chart.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.text.*?>
 
-<BorderPane prefHeight="-1.0" prefWidth="-1.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="com.gmail.Flameaxio.Controller">
-    <center>
-        <LineChart id="LineChartNxN">
-            <xAxis>
-                <NumberAxis label="X" lowerBound="-110.0" side="BOTTOM" />
-            </xAxis>
-            <yAxis>
-                <NumberAxis label="Y" lowerBound="-110.0" side="LEFT" />
-            </yAxis>
-        </LineChart>
-    </center>
-    <left>
-        <Pane prefHeight="506.0" prefWidth="400.0">
-            <children>
-                <TableView layoutX="0.0" layoutY="29.0" prefHeight="449.000022070315" prefWidth="200.0">
-                    <columns>
-                        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="105.0" text="x" />
-                        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="99.0" text="y" />
-                    </columns>
-                </TableView>
-                <TableView layoutX="200.0" layoutY="29.0" prefHeight="449.0" prefWidth="200.0">
-                    <columns>
-                        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="105.0" text="x" />
-                        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="99.0" text="y" />
-                    </columns>
-                </TableView>
-                <Label layoutX="85.0" layoutY="5.0" text="f(x)">
-                    <font>
-                        <Font name="System Bold" size="13.0" fx:id="x1" />
-                    </font>
-                </Label>
-                <Label font="$x1" layoutX="289.0" layoutY="5.0" text="g(x)" />
-                <Button layoutX="14.0" layoutY="479.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" text="+">
-                    <font>
-                        <Font name="System Bold" size="8.0" fx:id="x2" />
-                    </font>
-                </Button>
-                <Button font="$x2" layoutX="44.0" layoutY="479.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" text="-" />
-                <Button font="$x2" layoutX="346.0" layoutY="480.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" text="+" />
-                <Button font="$x2" layoutX="376.0" layoutY="480.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" text="-" />
-            </children>
-        </Pane>
-    </left>
-    <right>
-        <Pane prefHeight="200.0" prefWidth="200.0">
-            <children>
-                <Button font="$x1" layoutX="63.0" layoutY="242.0" mnemonicParsing="false" text="Calculate" />
-            </children>
-        </Pane>
-    </right>
-    <top>
-        <MenuBar>
-            <menus>
-                <Menu mnemonicParsing="false" text="File">
-                    <items>
-                        <MenuItem mnemonicParsing="false" text="New" />
-                        <MenuItem mnemonicParsing="false" text="Open..." />
-                        <MenuItem mnemonicParsing="false" text="Save..." />
-                        <MenuItem mnemonicParsing="false" text="Output into HTML..." />
-                        <MenuItem mnemonicParsing="false" text="Close" />
-                    </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Help">
-                    <items>
-                        <MenuItem mnemonicParsing="false" text="About" />
-                    </items>
-                </Menu>
-            </menus>
-        </MenuBar>
-    </top>
+<BorderPane prefHeight="-1.0" prefWidth="-1.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gmail.Flameaxio.Controller">
+  <center>
+    <LineChart fx:id="graph">
+      <xAxis>
+        <NumberAxis label="X" lowerBound="-110.0" side="BOTTOM" />
+      </xAxis>
+      <yAxis>
+        <NumberAxis label="Y" lowerBound="-110.0" side="LEFT" />
+      </yAxis>
+    </LineChart>
+  </center>
+  <left>
+    <Pane prefHeight="506.0" prefWidth="400.0">
+      <children>
+        <TableView fx:id="tableViewF" layoutX="0.0" layoutY="29.0" prefHeight="449.000022070315" prefWidth="200.0">
+          <columns>
+            <TableColumn fx:id="fxcol" maxWidth="5000.0" minWidth="10.0" prefWidth="105.0" text="x" />
+            <TableColumn fx:id="fycol" maxWidth="5000.0" minWidth="10.0" prefWidth="99.0" text="y" />
+          </columns>
+        </TableView>
+        <TableView fx:id="tableViewG" layoutX="200.0" layoutY="29.0" prefHeight="449.0" prefWidth="200.0">
+          <columns>
+            <TableColumn fx:id="gxcol" maxWidth="5000.0" minWidth="10.0" prefWidth="105.0" text="x" />
+            <TableColumn fx:id="gycol" maxWidth="5000.0" minWidth="10.0" prefWidth="99.0" text="y" />
+          </columns>
+        </TableView>
+        <Label layoutX="85.0" layoutY="5.0" text="f(x)">
+          <font>
+            <Font name="System Bold" size="13.0" fx:id="x1" />
+          </font>
+        </Label>
+        <Label font="$x1" layoutX="289.0" layoutY="5.0" text="g(x)" />
+        <Button layoutX="14.0" layoutY="479.0" minWidth="20.0" mnemonicParsing="false" onAction="#doAddF" prefHeight="20.0" prefWidth="20.0" text="+">
+          <font>
+            <Font name="System Bold" size="8.0" fx:id="x2" />
+          </font>
+        </Button>
+        <Button font="$x2" layoutX="44.0" layoutY="479.0" minWidth="20.0" mnemonicParsing="false" onAction="#doRemoveF" prefHeight="20.0" prefWidth="20.0" text="-" />
+        <Button font="$x2" layoutX="346.0" layoutY="480.0" minWidth="20.0" mnemonicParsing="false" onAction="#doAddG" prefHeight="20.0" prefWidth="20.0" text="+" />
+        <Button font="$x2" layoutX="376.0" layoutY="480.0" minWidth="20.0" mnemonicParsing="false" onAction="#doRemoveG" prefHeight="20.0" prefWidth="20.0" text="-" />
+      </children>
+    </Pane>
+  </left>
+  <right>
+    <Pane prefHeight="200.0" prefWidth="200.0">
+      <children>
+        <Button font="$x1" layoutX="63.0" layoutY="242.0" mnemonicParsing="false" onAction="#doCalc" text="Calculate" />
+        <TextField fx:id="a" layoutX="23.0" layoutY="71.0" prefWidth="40.0" />
+        <TextField fx:id="b" layoutX="141.0" layoutY="71.0" prefWidth="40.0" />
+        <Label layoutX="23.0" layoutY="57.0" prefWidth="11.0" text="a:" />
+        <Label layoutX="141.0" layoutY="57.0" text="b:" />
+        <TextField fx:id="e" layoutX="38.0" layoutY="140.0" prefWidth="125.0" />
+        <Label layoutX="38.0" layoutY="123.0" text="Epsilon:" />
+      </children>
+    </Pane>
+  </right>
+  <top>
+    <MenuBar>
+      <menus>
+        <Menu mnemonicParsing="false" text="File">
+          <items>
+            <MenuItem mnemonicParsing="false" onAction="#doNew" text="New" />
+            <MenuItem mnemonicParsing="false" onAction="#doOpen" text="Open..." />
+            <MenuItem mnemonicParsing="false" onAction="#doSave" text="Save..." />
+            <MenuItem mnemonicParsing="false" onAction="#doOutput" text="Output into HTML..." />
+            <MenuItem mnemonicParsing="false" onAction="#doClose" text="Close" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Help">
+          <items>
+            <MenuItem mnemonicParsing="false" onAction="#doAbout" text="About" />
+          </items>
+        </Menu>
+      </menus>
+    </MenuBar>
+  </top>
 </BorderPane>

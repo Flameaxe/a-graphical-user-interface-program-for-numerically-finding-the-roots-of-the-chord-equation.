@@ -82,17 +82,4 @@ public class Calculator {
          //   System.out.println("The root is non existent in these bounds");
         System.out.print(result);
     }
-    /*public void saveAsXML() throws IOException
-    {
-        try
-        {
-            DocumentBuilderFactory documentFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder documentBuilder = documentFactory.newDocumentBuilder();
-            Document document = documentBuilder.newDocument();
-
-        }catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-    }*/
 }
