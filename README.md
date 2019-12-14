@@ -1,0 +1,1 @@
+To make the app work you can create a new XML file or import your file(look for an example in the root folder). Once created a new file you can add points to f(x) and g(x) using the tableviews on the left of the UI after you added enough points you can proceed and click calculate button.
