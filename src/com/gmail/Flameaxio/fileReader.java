@@ -1,12 +1,10 @@
 package com.gmail.Flameaxio;
 
-import javafx.embed.swing.SwingFXUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import javax.imageio.ImageIO;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.OutputKeys;
@@ -14,8 +12,10 @@ import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import java.io.*;
-import java.util.Scanner;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Vector;
 
 interface XMLReader
@@ -151,7 +151,7 @@ class fileReader implements XMLReader, HTMLOutputter
                     "        }\n" +
                     "        table\n" +
                     "        {\n" +
-                    "            width: 20vh; text-align: center;\n" +
+                    "            width: 20vw; text-align: center;\n" +
                     "        }\n" +
                     "        .container\n" +
                     "        {\n" +

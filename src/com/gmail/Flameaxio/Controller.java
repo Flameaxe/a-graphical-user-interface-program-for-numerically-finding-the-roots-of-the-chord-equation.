@@ -15,19 +15,13 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.FileChooser;
 import javafx.util.converter.DoubleStringConverter;
-import sun.misc.BASE64Encoder;
-import sun.misc.IOUtils;
-import sun.nio.ch.IOUtil;
 
 import javax.imageio.ImageIO;
-import javax.imageio.stream.ImageInputStream;
-import java.awt.image.BufferedImage;
 import java.awt.image.RenderedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.nio.file.Files;
 import java.util.*;
 
 public class Controller implements Initializable
@@ -299,5 +293,15 @@ public class Controller implements Initializable
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         rootsArea.setEditable(false);
+    }
+
+    public void doInstructions(ActionEvent actionEvent) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("How to use...");
+        alert.setHeaderText("A graphical user-interface program for numerically finding the roots of the chord equation.");
+        alert.setContentText("To make the app work you can create a new XML file or import your file(look for an example in the root folder). Once created a new file you can add points to f(x) and g(x) using the tables on the left of the UI and the buttons below the tables. After you added enough points on both of the tables you can proceed and click calculate button." +
+                "The roots will be displayed in the area below the calculate button." +
+                "\n You also have an option to save results as .html file(this file will include points, roots and screenshot of the graph)");
+        alert.showAndWait();
     }
 }
