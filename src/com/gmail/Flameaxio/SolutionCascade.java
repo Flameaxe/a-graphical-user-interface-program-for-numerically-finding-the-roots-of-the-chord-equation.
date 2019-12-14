@@ -76,11 +76,4 @@ public class SolutionCascade {
         fr.saveHTML(file, encodedImage);
     }
 
-    /*public void calculate(double a, double b, double e) // Receives two values as boundaries and 'epsilon' as the level of precision
-    {
-        if(calculator == null)
-            calculator = new Calculator(input);
-        calculator.output(a,b,e);
-    }
-*/
 }

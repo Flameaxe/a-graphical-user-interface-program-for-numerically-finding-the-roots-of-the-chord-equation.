@@ -60,12 +60,10 @@ class fileReader implements XMLReader, HTMLOutputter
                     System.out.println(element.getAttribute("function"));
                     if(element.getAttribute("function").equals("f")) {
                         f.add(new Point(Double.parseDouble(element.getElementsByTagName("x").item(0).getTextContent()),Double.parseDouble(element.getElementsByTagName("y").item(0).getTextContent())));
-                        System.out.println("x: " + Integer.parseInt(element.getElementsByTagName("x").item(0).getTextContent()) + "; y: " + Integer.parseInt(element.getElementsByTagName("y").item(0).getTextContent()) + ";");
                     }
                     else if (element.getAttribute("function").equals("g"))
                     {
                         g.add(new Point(Double.parseDouble(element.getElementsByTagName("x").item(0).getTextContent()),Double.parseDouble(element.getElementsByTagName("y").item(0).getTextContent())));
-                        System.out.println("x: " + Integer.parseInt(element.getElementsByTagName("x").item(0).getTextContent()) + "; y: " + Integer.parseInt(element.getElementsByTagName("y").item(0).getTextContent()) + ";");
                     }
                 }
             }
