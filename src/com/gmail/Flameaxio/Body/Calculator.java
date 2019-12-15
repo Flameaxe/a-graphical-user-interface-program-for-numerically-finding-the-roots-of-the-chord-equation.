@@ -1,13 +1,15 @@
-package com.gmail.Flameaxio;
+package com.gmail.Flameaxio.Body;
 
+
+import com.gmail.Flameaxio.Point;
 
 import java.util.Vector;
 
 public class Calculator {
     private SolutionCascade sc;
     private Vector<Double> root = new Vector<>();
-    public Calculator(SolutionCascade sc)
-    {
+
+    public Calculator(SolutionCascade sc) {
         this.sc = sc;
     }
     public static double InterpolateLagrangePolynomial (double x, Vector<Point> points)
@@ -36,8 +38,8 @@ public class Calculator {
             k = Fxord(i,i+1,e);
             if (k != null ) {
                 k = (double) Math.round(k);
-                if(k > a && k < b && !contains(k))
-                root.add(k);
+                if (k >= a && k <= b && !contains(k))
+                    root.add(k);
             }
         }
     }
@@ -59,51 +61,6 @@ public class Calculator {
         return root;
     }
 
-
-
-    public boolean fyes(double x) {
-        for(int i = 0 ; i < sc.getInputF().size();i++) {
-            if(x - 0.5 == sc.getInputF().get(i).getX()) {
-                return true;
-            }
-        }
-
-        return false;
-
-    }
-    public int gyes(double x) {
-        for(int i = 0 ; i < sc.getInputG().size();i++) {
-            if(x == sc.getInputG().get(i).getX()) {
-                return i+1;
-            }
-        }
-
-        return 0;
-
-    }
-
-
-    /*public int f(double x) {
-        for(int i = 0 ; i < fxdata.size();i++) {
-            if(x == fxdata.get(i).getX()) {
-                return i;
-            }
-        }
-
-        return 0;
-
-    }
-    public int g(double x) {
-        for(int i = 0 ; i < gxdata.size();i++) {
-            if(x == gxdata.get(i).getX()) {
-                return i;
-            }
-        }
-
-        return 0;
-
-    }
-*/
     public double F2(double x,double eps) {
         double x0=x+eps;
         double fx= (iteration(x + eps,1) - iteration(x0 + eps,1))/((x + eps) - (x0 + eps)) - (iteration(x,1) - iteration(x0,1))/(x - x0);

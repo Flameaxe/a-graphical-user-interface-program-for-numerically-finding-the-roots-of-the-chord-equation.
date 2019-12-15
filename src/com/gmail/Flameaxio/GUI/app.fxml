@@ -6,17 +6,18 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
-<BorderPane prefHeight="-1.0" prefWidth="-1.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="com.gmail.Flameaxio.Controller">
-  <center>
-    <LineChart fx:id="graph">
-      <xAxis>
-        <NumberAxis label="X" lowerBound="-110.0" side="BOTTOM" />
-      </xAxis>
-      <yAxis>
-        <NumberAxis label="Y" lowerBound="-110.0" side="LEFT" />
-      </yAxis>
-    </LineChart>
-  </center>
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="-1.0" prefWidth="-1.0" xmlns="http://javafx.com/javafx/2.2"
+            fx:controller="com.gmail.Flameaxio.GUI.Controller">
+    <center>
+        <LineChart fx:id="graph">
+            <xAxis>
+                <NumberAxis label="X" lowerBound="-110.0" side="BOTTOM"/>
+            </xAxis>
+            <yAxis>
+                <NumberAxis label="Y" lowerBound="-110.0" side="LEFT"/>
+            </yAxis>
+        </LineChart>
+    </center>
   <left>
     <Pane prefHeight="506.0" prefWidth="400.0">
       <children>

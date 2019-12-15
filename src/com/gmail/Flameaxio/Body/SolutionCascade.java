@@ -1,9 +1,9 @@
-package com.gmail.Flameaxio;
+package com.gmail.Flameaxio.Body;
 
+import com.gmail.Flameaxio.Point;
 import javafx.scene.image.WritableImage;
 
 import java.io.File;
-import java.io.FileReader;
 import java.util.Vector;
 
 public class SolutionCascade {
@@ -13,25 +13,19 @@ public class SolutionCascade {
     private WritableImage graphShot;
     public Calculator calculator;
     private Vector<Double> roots = null;
-    private fileReader fr = new fileReader(this);;
+    private fileReader fr = new fileReader(this);
+
     public SolutionCascade(String inputFile)  // receives input and output file directories, if file is null then will be prompted manual input
     {
-        if(inputFile != null)
+        if (inputFile != null)
             this.inputFile = new File(inputFile);
         calculator = new Calculator(this);
     }
+
     public void read() {
         Vector<Vector<Point>> points = fr.readXML(inputFile);
         inputF = points.elementAt(0);
         inputG = points.elementAt(1);
-    }
-    public void addPointF(Point p)
-    {
-        inputF.add(p);
-    }
-    public void addPointG(Point p)
-    {
-        inputG.add(p);
     }
     public void removePointF(int index)
     {

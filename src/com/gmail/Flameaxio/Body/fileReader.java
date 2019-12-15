@@ -1,5 +1,6 @@
-package com.gmail.Flameaxio;
+package com.gmail.Flameaxio.Body;
 
+import com.gmail.Flameaxio.Point;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;

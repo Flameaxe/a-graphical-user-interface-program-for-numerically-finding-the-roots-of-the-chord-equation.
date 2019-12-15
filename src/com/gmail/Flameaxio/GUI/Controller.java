@@ -1,5 +1,8 @@
-package com.gmail.Flameaxio;
+package com.gmail.Flameaxio.GUI;
 
+import com.gmail.Flameaxio.Body.Calculator;
+import com.gmail.Flameaxio.Body.SolutionCascade;
+import com.gmail.Flameaxio.Point;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
