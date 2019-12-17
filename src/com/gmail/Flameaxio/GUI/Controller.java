@@ -42,7 +42,10 @@ public class Controller implements Initializable
     @FXML private TextField b;
     @FXML private TextField e;
     @FXML private LineChart graph;
-    @FXML private TextArea rootsArea;
+    @FXML
+    private TextArea rootsArea;
+    @FXML
+    private CheckBox check;
     public static FileChooser getFileChooser(String title, String format) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setInitialDirectory(new File("."));
@@ -68,6 +71,8 @@ public class Controller implements Initializable
         sc = new SolutionCascade(null);
         fx = null;
         gx = null;
+        graph.getData().clear();
+        rootsArea.clear();
         a.setText("");
         b.setText("");
         e.setText("");
@@ -217,21 +222,23 @@ public class Controller implements Initializable
             //draw graph
             Double A = Double.parseDouble(a.getText());
             Double B = Double.parseDouble(b.getText());
+            if (A > B)
+                throw new InputMismatchException();
             XYChart.Series seriesX = new XYChart.Series();
             XYChart.Series seriesY = new XYChart.Series();
-            for (Double i =  A; i <= B; i++) {
-                double x = Calculator.InterpolateLagrangePolynomial(i,sc.getInputF());
+            for (Double i = A; i <= B; i++) {
+                double x = Calculator.InterpolateLagrangePolynomial(i, sc.getInputF());
                 seriesX.getData().add(new XYChart.Data(i, x));
             }
-            for (Double i =  A; i <= B; i++) {
-                double x = Calculator.InterpolateLagrangePolynomial(i,sc.getInputG());
+            for (Double i = A; i <= B; i++) {
+                double x = Calculator.InterpolateLagrangePolynomial(i, sc.getInputG());
                 seriesY.getData().add(new XYChart.Data(i, x));
             }
             graph.getData().add(seriesX);
             graph.getData().add(seriesY);
 
             //calc roots
-            sc.calculator.roots(Double.parseDouble(a.getText()),Double.parseDouble(b.getText()),Double.parseDouble(e.getText()));
+            sc.calculator.roots(Double.parseDouble(a.getText()), Double.parseDouble(b.getText()), Double.parseDouble(e.getText()), check.isSelected());
             Vector<Double> roots = sc.calculator.getRoots();
             sc.setRoots(roots);
             rootsArea.clear();
@@ -243,6 +250,7 @@ public class Controller implements Initializable
         }catch (Exception e)
         {
             e.printStackTrace();
+            showError("Wrong input! 'a' always must be less then 'b'!");
         }
     }
 

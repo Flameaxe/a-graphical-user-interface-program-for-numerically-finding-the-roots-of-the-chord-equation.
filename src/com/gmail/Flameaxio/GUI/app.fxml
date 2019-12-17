@@ -18,16 +18,17 @@
             </yAxis>
         </LineChart>
     </center>
-  <left>
-    <Pane prefHeight="506.0" prefWidth="400.0">
-      <children>
-        <TableView fx:id="tableViewF" layoutX="0.0" layoutY="29.0" prefHeight="449.000022070315" prefWidth="200.0">
-          <columns>
-            <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="105.0" text="x" fx:id="fxcol" />
-            <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="99.0" text="y" fx:id="fycol" />
-          </columns>
-        </TableView>
-        <TableView fx:id="tableViewG" layoutX="200.0" layoutY="29.0" prefHeight="449.0" prefWidth="200.0">
+    <left>
+        <Pane prefHeight="506.0" prefWidth="400.0">
+            <children>
+                <TableView fx:id="tableViewF" layoutX="0.0" layoutY="29.0" prefHeight="449.000022070315"
+                           prefWidth="200.0">
+                    <columns>
+                        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="105.0" text="x" fx:id="fxcol"/>
+                        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="99.0" text="y" fx:id="fycol"/>
+                    </columns>
+                </TableView>
+                <TableView fx:id="tableViewG" layoutX="200.0" layoutY="29.0" prefHeight="449.0" prefWidth="200.0">
           <columns>
             <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="105.0" text="x" fx:id="gxcol" />
             <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="99.0" text="y" fx:id="gycol" />
@@ -62,6 +63,7 @@
         <Label font="$x1" layoutX="38.0" layoutY="123.0" text="Epsilon:" />
         <TextArea fx:id="rootsArea" layoutX="8.0" layoutY="309.0" prefWidth="185.0" wrapText="true" />
         <Label font="$x1" layoutX="85.0" layoutY="292.0" text="Roots:" />
+          <CheckBox fx:id="check" layoutX="23.0" layoutY="275.0" mnemonicParsing="false" text="Round roots to Integer"/>
       </children>
     </Pane>
   </right>
@@ -80,7 +82,7 @@
         <Menu mnemonicParsing="false" text="Help">
           <items>
             <MenuItem mnemonicParsing="false" onAction="#doAbout" text="About" />
-            <MenuItem mnemonicParsing="false" onAction="#doInstructions" text="Instructions"/>
+              <MenuItem mnemonicParsing="false" onAction="#doInstructions" text="Instructions"/>
           </items>
         </Menu>
       </menus>

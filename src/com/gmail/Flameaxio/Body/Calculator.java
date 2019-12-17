@@ -21,9 +21,8 @@ public class Calculator {
             double basicsPol = 1;
             for (int j = 0; j < points.size(); j++)
             {
-                if (j != i)
-                {
-                    basicsPol *= (x - points.get(j).getX())/(points.get(i).getX() - points.get(j).getX());
+                if (j != i) {
+                    basicsPol *= (x - points.get(j).getX()) / (points.get(i).getX() - points.get(j).getX());
                 }
             }
             lagrangePol += basicsPol * points.get(i).getY();
@@ -32,12 +31,14 @@ public class Calculator {
 
         return lagrangePol;
     }
-    public void roots(double a, double b, double e) {
-        Double k= 0.0;
-        for ( double i = a ; i < b;i++) {
-            k = Fxord(i,i+1,e);
-            if (k != null ) {
-                k = (double) Math.round(k);
+
+    public void roots(double a, double b, double e, boolean round) {
+        Double k = 0.0;
+        for (double i = a; i < b; i++) {
+            k = Fxord(i, i + 1, e);
+            if (k != null) {
+                if (round)
+                    k = (double) Math.round(k);
                 if (k >= a && k <= b && !contains(k))
                     root.add(k);
             }
